@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lab 6</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        .container {
+    
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+    </style>
+  </head>
+    <body>
+        <form id="trackForm" class="container">
+      
+            <div class="mb-3">
+                <label for="artistId">Artist ID:</label>
+
+                <input
+                type="number"
+                id="artistId"
+                placeholder="Enter Artist ID"
+                required
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Search Tracks
+            </button>
+
+            <div id="results" class="mb-3"></div>
+
+    </form>
+    </body>
+</html>
+<script>
+    document.getElementById("trackForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // const Name = document.getElementById("Name").value;
+        // const Type = document.querySelector('input[name="Type"]:checked').value;
+        // const Attack = document.getElementById("Attack").value;
+
+        // // Log to console (or do whatever you need with the data)
+        // console.log("Form submitted successfully!");
+        // console.log("Name:", Name);
+        // console.log("Type:", Type);
+        // console.log("Attack:", Attack);
+
+        await sendToPost()
+        
+    });
+
+    async function sendToPost() {
+         const artistId = document.getElementById("artistId").value;
+        console.log("artistId:", artistId);
+        
+        
+        try {
+            const response = await fetch(
+                '/users',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ Name, emailAddress, message })
+                }
+            );
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error('Get failed');
+            }
+
+            console.log('Get successful!');
+
+        } catch (error) {
+            console.log('Error: ' + error.message);
+        }
+    }
+</script>
